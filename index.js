@@ -2,6 +2,7 @@ var path = require('path');
 var server = require("./server");
 var ocf = require("./handlers/ocfHandler");
 var system = require("./handlers/systemHandler");
+var swupd = require("./handlers/swupdHandler");
 var fs = null;
 var args = process.argv.slice(2);
 var options = {
@@ -71,6 +72,7 @@ if (options.https == true) {
 
 server.use("/api/oic", ocf);
 server.use("/api/system", system);
+server.use("/api/swupd", swupd);
 
 // systemd socket activation support
 if (process.env.LISTEN_FDS) {
