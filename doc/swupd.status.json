@@ -1,0 +1,16 @@
+{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "boolean",
+      "description": "Status of the swupd call"
+    },
+    "message": {
+      "type": "string",
+      "description": "Indicates the status of the swupd call"
+    }
+  }
+}

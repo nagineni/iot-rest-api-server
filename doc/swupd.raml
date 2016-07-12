@@ -1,0 +1,195 @@
+#%RAML 0.8
+title: Software Updater (swupd)
+version: v1-20161207
+
+schemas:
+  - swupd: !include swupd.json
+    swupdDelete: !include swupd.delete.json
+    swupdSearch: !include swupd.search.json
+    swupdStatus: !include swupd.status.json
+
+/swupd:
+  displayName: /swupd
+  description: |
+    Software Updater (swupd) interface provides a new way of adding and updating a Linux-based OS.
+  get:
+    description: |
+      List all available bundles for the current version of OS.
+    responses:
+      200:
+        description: |
+          Successfully retrieved bundles list.
+        body:
+          application/json:
+            schema: swupd
+            example: |
+              {
+                "bundles": ["os-utils","os-dev-full"]
+              }
+
+  post:
+    description: |
+      Install new bundle(s).
+      Client can specify the URL of the software update server.
+    queryParameters:
+      repoURL:
+        description: |
+          URL of the swupd server for version string and content file downloads.
+        type: string
+        example: "http://localhost:8080"
+    body:
+      application/json:
+        schema: swupd
+        example: |
+          {
+            "bundles": ["os-utils","os-dev-full"]
+          }
+    responses:
+      200:
+        description: |
+          Indicates whether the bundle(s) installed successfully or not.
+        body:
+          application/json:
+            schema: swupdStatus
+            example: |
+              {
+                "status": true,
+                "message": "Installation done"
+              }
+
+  put:
+    description: |
+      Update to latest OS version.
+      Client can specify the URL of the software update server.
+    queryParameters:
+      repoURL:
+        description: |
+          URL of the swupd server for version string and content file downloads.
+        type: string
+        example: "http://localhost:8080"
+    responses:
+      200:
+        description: |
+          Indicates whether the system updated successfully or not.
+        body:
+          application/json:
+            schema: swupdStatus
+            example: |
+              {
+                "status": true,
+                "message": "System updated"
+              }
+
+  delete:
+    description: |
+      Uninstall a bundle.
+    body:
+      application/json:
+        schema: swupdDelete
+        example: |
+          {
+            "bundle": "os-utils"
+          }
+    responses:
+      200:
+        description: |
+          Indicates whether the bundle has been deleted or not.
+        body:
+          application/json:
+            schema: swupdStatus
+            example: |
+              {
+                "status": true,
+                "message": "Bundle Deleted"
+              }
+
+/swupd/check-update:
+  displayName: /swupd/check-update
+  description: |
+    Interface to check if a new OS version is available.
+  get:
+    description: |
+      Checks if a new OS version is available.
+      Client can specify the URL of the software update server.
+    queryParameters:
+      repoURL:
+        description: |
+          URL of the swupd server for version string and content file downloads.
+        type: string
+        example: "http://localhost:8080"
+    responses:
+      200:
+        description: |
+          Indicates whether the new updates are available or not.
+        body:
+          application/json:
+            schema: swupdStatus
+            example: |
+              {
+                "status": true,
+                "message": "New update available"
+              }
+
+/swupd/search:
+  displayName: /swupd/search
+  description: |
+    Interface to search the OS for a binary or library.
+  get:
+    description: |
+      Search OS for a binary or library.
+    queryParameters:
+      library:
+        type: number
+        description: |
+          Pass the value 1 to search paths where libraries are located for a match
+        example: 1
+      binary:
+        description: |
+          Pass the value 1 to search paths where binaries are located for a match
+        type: number
+        example: 1
+      name:
+        description: |
+          A substring of a binary, library or filename
+        type: string
+        example: "nodejs"
+    responses:
+      200:
+        description: |
+          Search results.
+        body:
+          application/json:
+            schema: swupdSearch
+            example: |
+              {
+                "searchList": ["iot:/usr/share/clear/bundles/iot", "nodejs-basic:/usr/share/clear/bundles/nodejs-basic"]
+              }
+
+
+/swupd/verify:
+  displayName: /swupd/verify
+  description: |
+    Interface to verify content for OS version.
+  get:
+    description: |
+      Verify the content for OS version.
+      Client can specify the URL of the software update server.
+    queryParameters:
+      repoURL:
+        description: |
+          URL of the swupd server for version string and content file downloads.
+        type: string
+        example: "http://localhost:8080"
+    responses:
+      200:
+        description: |
+          Indicates whether the verify call successful or not.
+        body:
+          application/json:
+            schema: swupdStatus
+            example: |
+              {
+                "status": true,
+                "message": "Verify successful"
+              }
+

@@ -1,0 +1,15 @@
+{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "properties": {
+    "searchList" : {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Search results"
+      }
+    }
+  }
+}

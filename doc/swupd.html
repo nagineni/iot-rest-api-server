@@ -1,0 +1,317 @@
+<!DOCTYPE HTML><html><head><title>Software Updater (swupd) API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.4.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Software Updater (swupd) API documentation <small>version v1-20161207</small></h1><p></p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="swupd" class="panel-title">/swupd</h3></div><div class="panel-body"><div class="top-resource-description"><p>Software Updater (swupd) interface provides a new way of adding and updating a Linux-based OS.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_swupd"><span class="parent"></span>/swupd</a> <span class="methods"><a href="#swupd_get"><span class="badge badge_get">get</span></a> <a href="#swupd_post"><span class="badge badge_post">post</span></a> <a href="#swupd_put"><span class="badge badge_put">put</span></a> <a href="#swupd_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_swupd" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#swupd_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>List all available bundles for the current version of OS.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#swupd_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Install new bundle(s). Client can specify the URL of the software update server.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#swupd_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Update to latest OS version. Client can specify the URL of the software update server.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#swupd_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Uninstall a bundle.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="swupd_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/swupd</h4></div><div class="modal-body"><div class="alert alert-info"><p>List all available bundles for the current version of OS.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#swupd_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="swupd_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Successfully retrieved bundles list.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "required": ["bundles"],
+  "properties": {
+    "bundles" : {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Name of the bundle"
+      }
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "bundles": ["os-utils","os-dev-full"]
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="swupd_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/swupd</h4></div><div class="modal-body"><div class="alert alert-info"><p>Install new bundle(s). Client can specify the URL of the software update server.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#swupd_post_request" data-toggle="tab">Request</a></li><li><a href="#swupd_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="swupd_post_request"><h3>Query Parameters</h3><ul><li><strong>repoURL</strong>: <em>(string)</em><p>URL of the swupd server for version string and content file downloads.</p><p><strong>Example</strong>:</p><pre>http://localhost:8080</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "required": ["bundles"],
+  "properties": {
+    "bundles" : {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Name of the bundle"
+      }
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "bundles": ["os-utils","os-dev-full"]
+}
+</code></pre></div><div class="tab-pane" id="swupd_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Indicates whether the bundle(s) installed successfully or not.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "boolean",
+      "description": "Status of the swupd call"
+    },
+    "message": {
+      "type": "string",
+      "description": "Indicates the status of the swupd call"
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": true,
+  "message": "Installation done"
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="swupd_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/swupd</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update to latest OS version. Client can specify the URL of the software update server.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#swupd_put_request" data-toggle="tab">Request</a></li><li><a href="#swupd_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="swupd_put_request"><h3>Query Parameters</h3><ul><li><strong>repoURL</strong>: <em>(string)</em><p>URL of the swupd server for version string and content file downloads.</p><p><strong>Example</strong>:</p><pre>http://localhost:8080</pre></li></ul></div><div class="tab-pane" id="swupd_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Indicates whether the system updated successfully or not.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "boolean",
+      "description": "Status of the swupd call"
+    },
+    "message": {
+      "type": "string",
+      "description": "Indicates the status of the swupd call"
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": true,
+  "message": "System updated"
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="swupd_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/swupd</h4></div><div class="modal-body"><div class="alert alert-info"><p>Uninstall a bundle.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#swupd_delete_request" data-toggle="tab">Request</a></li><li><a href="#swupd_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="swupd_delete_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "properties": {
+    "bundle" : {
+      "type": "string",
+      "description": "Name of the bundle"
+    }
+  },
+  "required": ["bundle"]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "bundle": "os-utils"
+}
+</code></pre></div><div class="tab-pane" id="swupd_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Indicates whether the bundle has been deleted or not.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "boolean",
+      "description": "Status of the swupd call"
+    },
+    "message": {
+      "type": "string",
+      "description": "Indicates the status of the swupd call"
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": true,
+  "message": "Bundle Deleted"
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="swupd_check_update" class="panel-title">/swupd/check-update</h3></div><div class="panel-body"><div class="top-resource-description"><p>Interface to check if a new OS version is available.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_swupd_check_update"><span class="parent"></span>/swupd/check-update</a> <span class="methods"><a href="#swupd_check_update_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_swupd_check_update" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#swupd_check_update_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Checks if a new OS version is available. Client can specify the URL of the software update server.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="swupd_check_update_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/swupd/check-update</h4></div><div class="modal-body"><div class="alert alert-info"><p>Checks if a new OS version is available. Client can specify the URL of the software update server.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#swupd_check_update_get_request" data-toggle="tab">Request</a></li><li><a href="#swupd_check_update_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="swupd_check_update_get_request"><h3>Query Parameters</h3><ul><li><strong>repoURL</strong>: <em>(string)</em><p>URL of the swupd server for version string and content file downloads.</p><p><strong>Example</strong>:</p><pre>http://localhost:8080</pre></li></ul></div><div class="tab-pane" id="swupd_check_update_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Indicates whether the new updates are available or not.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "boolean",
+      "description": "Status of the swupd call"
+    },
+    "message": {
+      "type": "string",
+      "description": "Indicates the status of the swupd call"
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": true,
+  "message": "New update available"
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="swupd_search" class="panel-title">/swupd/search</h3></div><div class="panel-body"><div class="top-resource-description"><p>Interface to search the OS for a binary or library.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_swupd_search"><span class="parent"></span>/swupd/search</a> <span class="methods"><a href="#swupd_search_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_swupd_search" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#swupd_search_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Search OS for a binary or library.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="swupd_search_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/swupd/search</h4></div><div class="modal-body"><div class="alert alert-info"><p>Search OS for a binary or library.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#swupd_search_get_request" data-toggle="tab">Request</a></li><li><a href="#swupd_search_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="swupd_search_get_request"><h3>Query Parameters</h3><ul><li><strong>library</strong>: <em>(number)</em><p>Pass the value 1 to search paths where libraries are located for a match</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li><li><strong>binary</strong>: <em>(number)</em><p>Pass the value 1 to search paths where binaries are located for a match</p><p><strong>Example</strong>:</p><pre><code>1</code></pre></li><li><strong>name</strong>: <em>(string)</em><p>A substring of a binary, library or filename</p><p><strong>Example</strong>:</p><pre>nodejs</pre></li></ul></div><div class="tab-pane" id="swupd_search_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Search results.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "properties": {
+    "searchList" : {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Search results"
+      }
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "searchList": ["iot:/usr/share/clear/bundles/iot", "nodejs-basic:/usr/share/clear/bundles/nodejs-basic"]
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="swupd_verify" class="panel-title">/swupd/verify</h3></div><div class="panel-body"><div class="top-resource-description"><p>Interface to verify content for OS version.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_swupd_verify"><span class="parent"></span>/swupd/verify</a> <span class="methods"><a href="#swupd_verify_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_swupd_verify" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#swupd_verify_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Verify the content for OS version. Client can specify the URL of the software update server.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="swupd_verify_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/swupd/verify</h4></div><div class="modal-body"><div class="alert alert-info"><p>Verify the content for OS version. Client can specify the URL of the software update server.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#swupd_verify_get_request" data-toggle="tab">Request</a></li><li><a href="#swupd_verify_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="swupd_verify_get_request"><h3>Query Parameters</h3><ul><li><strong>repoURL</strong>: <em>(string)</em><p>URL of the swupd server for version string and content file downloads.</p><p><strong>Example</strong>:</p><pre>http://localhost:8080</pre></li></ul></div><div class="tab-pane" id="swupd_verify_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Indicates whether the verify call successful or not.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "boolean",
+      "description": "Status of the swupd call"
+    },
+    "message": {
+      "type": "string",
+      "description": "Indicates the status of the swupd call"
+    }
+  }
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>{
+  "status": true,
+  "message": "Verify successful"
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#swupd">/swupd</a></li><li><a href="#swupd_check_update">/swupd/check-update</a></li><li><a href="#swupd_search">/swupd/search</a></li><li><a href="#swupd_verify">/swupd/verify</a></li></ul></div></div></div></div></body></html>

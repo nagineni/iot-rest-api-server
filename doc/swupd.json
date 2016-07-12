@@ -1,0 +1,16 @@
+{
+  "id": "intel.iot.rest.api.swupd#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Software Update",
+  "type": "object",
+  "required": ["bundles"],
+  "properties": {
+    "bundles" : {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Name of the bundle"
+      }
+    }
+  }
+}
