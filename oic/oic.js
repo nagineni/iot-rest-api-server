@@ -28,6 +28,9 @@ exports.parseRes = function(resource) {
 
   o.p = p;
 
+  if (typeof resource.endpoints != "undefined")
+    o.eps = resource.endpoints;
+
   console.log(JSON.stringify(o));
 
   return o;
