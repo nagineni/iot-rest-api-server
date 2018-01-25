@@ -185,7 +185,6 @@ var routes = function(req, res) {
     }
 
     function handleResourceGet(req, res) {
-
         if (typeof req.query.di == "undefined") {
             res.writeHead(badRequestStatusCode, {'Content-Type':'text/plain'})
             res.end("Query parameter \"di\" is missing.");
@@ -213,7 +212,7 @@ var routes = function(req, res) {
             }
         }
 
-        DEV.retrieve({deviceId: req.query.di, resourcePath: req.path}, req.query).then(
+        DEV.retrieve({deviceId: req.query.di, resourcePath: req.path}, req.query, undefined, req.query.ep).then(
             function(resource) {
                 if (req.query.obs != "undefined" && req.query.obs == true) {
                     req.on('close', function() {
